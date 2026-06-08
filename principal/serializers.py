@@ -4,8 +4,11 @@ Django REST Framework
 """
  
 from rest_framework import serializers
-from .models import Paciente, Consulta, Prontuario
- 
+from .models import (
+    Usuario, Paciente, Dentista, Consulta,
+    Prontuario, Procedimento, ProntuarioProcedimento,
+    Financeiro, Estoque,
+)
  
 class PacienteListSerializer(serializers.ModelSerializer):
     """Serializer resumido para listagem."""
@@ -92,3 +95,68 @@ class ProntuarioResumoSerializer(serializers.ModelSerializer):
             'id', 'data_atendimento', 'diagnostico',
             'dentista_nome', 'proxima_consulta',
         ]
+
+
+class UsuarioSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Usuario
+        fields = [
+            'id', 'username', 'email', 'first_name',
+            'last_name', 'perfil', 'ativo'
+        ]
+        read_only_fields = ['id']
+
+
+class DentistaSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Dentista
+        fields = '__all__'
+        read_only_fields = ['id']
+
+
+class ProcedimentoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Procedimento
+        fields = '__all__'
+        read_only_fields = ['id']
+
+
+class ProntuarioProcedimentoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ProntuarioProcedimento
+        fields = '__all__'
+        read_only_fields = ['id']
+
+
+class FinanceiroSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Financeiro
+        fields = '__all__'
+        read_only_fields = ['id', 'criado_em']
+
+
+class EstoqueSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Estoque
+        fields = '__all__'
+        read_only_fields = ['id', 'criado_em', 'atualizado_em']
+
+
+class ConsultaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Consulta
+        fields = '__all__'
+        read_only_fields = ['id', 'criado_em']
+
+
+class ProntuarioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Prontuario
+        fields = '__all__'
+        read_only_fields = ['id', 'criado_em']

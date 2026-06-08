@@ -10,12 +10,26 @@ from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from django.db.models import Q
  
-from .models import Paciente
+from .models import (
+    Usuario, Paciente, Dentista,
+    Consulta, Prontuario, Procedimento, 
+    ProntuarioProcedimento, Financeiro, Estoque
+)
+
+
 from .serializers import (
     PacienteListSerializer,
     PacienteDetailSerializer,
     ConsultaResumoSerializer,
     ProntuarioResumoSerializer,
+    UsuarioSerializer, 
+    DentistaSerializer,
+    ProcedimentoSerializer,
+    FinanceiroSerializer, 
+    EstoqueSerializer,
+    ConsultaSerializer,
+    ProntuarioSerializer,
+    ProntuarioProcedimentoSerializer
 )
 from .filters_urls import PacienteFilter
  
@@ -99,3 +113,50 @@ class PacienteViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
         return super().destroy(request, *args, **kwargs)
+
+class UsuarioViewSet(viewsets.ModelViewSet):
+    queryset = Usuario.objects.all().order_by('id')
+    serializer_class = UsuarioSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class DentistaViewSet(viewsets.ModelViewSet):
+    queryset = Dentista.objects.all().order_by('nome_completo')
+    serializer_class = DentistaSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class ConsultaViewSet(viewsets.ModelViewSet):
+    queryset = Consulta.objects.all().order_by('id')
+    serializer_class = ConsultaSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class ProntuarioViewSet(viewsets.ModelViewSet):
+    queryset = Prontuario.objects.all().order_by('id')
+    serializer_class = ProntuarioSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class ProcedimentoViewSet(viewsets.ModelViewSet):
+    queryset = Procedimento.objects.all().order_by('id')
+    serializer_class = ProcedimentoSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class ProntuarioProcedimentoViewSet(viewsets.ModelViewSet):
+    queryset = ProntuarioProcedimento.objects.all().order_by('id')
+    serializer_class = ProntuarioProcedimentoSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class FinanceiroViewSet(viewsets.ModelViewSet):
+    queryset = Financeiro.objects.all().order_by('id')
+    serializer_class = FinanceiroSerializer
+    permission_classes = [IsAuthenticated]
+    
+
+class EstoqueViewSet(viewsets.ModelViewSet):
+    queryset = Estoque.objects.all()
+    serializer_class = EstoqueSerializer
+    permission_classes = [IsAuthenticated]
