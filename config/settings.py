@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'principal',
     'rest_framework',
     'django_filters',
+    'drf_spectacular',
+    'drf_spectacular_sidecar',
 ]
 
 MIDDLEWARE = [
@@ -78,7 +80,9 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
+
 
 
 # Database
@@ -129,3 +133,10 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 AUTH_USER_MODEL = 'principal.Usuario'
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Sistema Odontológico API',
+    'DESCRIPTION': 'API REST para gestão de consultório odontológico.',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
